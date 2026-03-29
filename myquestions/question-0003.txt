@@ -1,1 +1,36 @@
+El Problema
+La detección temprana de sepsis en la UCI es un problema de clasificación extremadamente desbalanceado (pocos casos positivos pero con alto costo por falso negativo).
+Un modelo estándar de Machine Learning fallaría al priorizar la exactitud global sobre la sensibilidad.
+---------------------------------------------------------------------------------
+Tu Misión
+Escribe una función llamada: train_sepsis_detector(X, y, class_weight_ratio=10)
+que implemente una estrategia de aprendizaje sensible al costo:
 
+1. División
+  - Divida los datos en entrenamiento y prueba (80/20)
+  - Use stratify=y para mantener la proporción de la clase minoritaria
+
+2. Modelado
+  - Instancie un RandomForestClassifier
+  - Configure class_weight para penalizar la clase positiva según  class_weight_ratio
+
+3. Optimización
+  - Realice una búsqueda de hiperparámetros con RandomizedSearchCV
+  - Optimice solo:
+    - n_estimators
+    - max_depth
+
+4. Evaluación
+Calcule la matriz de confusión sobre el conjunto de prueba
+---------------------------------------------------------------------------------
+Entrada
+  - X: Matriz de características (fisiología del paciente)
+  - y: Vector de etiquetas (0: normal, 1: sepsis)
+  - class_weight_ratio: Peso asignado a la clase positiva (int)
+
+Salida
+Una tupla: (mejor_modelo, matriz_de_confusión)
+
+Restricciones
+  - Debe fijar random_state=42 en todos los componentes necesarios
+  - La métrica de optimización debe ser 'recall'
