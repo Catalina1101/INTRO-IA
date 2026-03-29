@@ -1,1 +1,36 @@
+El Problema
+Un equipo de bioingeniería está evaluando la durabilidad de una nueva prótesis de cadera. Se dispone de datos de pacientes que incluyen el tiempo hasta la falla del dispositivo o el último seguimiento (censura).
+Es necesario preparar los datos para un modelo de Cox Proportional Hazards.
+---------------------------------------------------------------------------------
+Tu Misión
+Escribe una función llamada: prepare_survival_data(df, event_col, duration_col) que realice lo siguiente:
 
+1. Codificación
+Asegure que la columna event_col sea de tipo booleano:
+ - True si ocurrió la falla
+ - False si fue censurado
+
+2. Escalado Sensible
+ - Identifique las columnas numéricas (excluyendo la duración)
+ - Aplique RobustScaler de sklearn para manejar valores atípicos en los datos       biomédicos
+
+3. Manejo de Nulos
+Impute los valores faltantes usando la mediana mediante SimpleImputer
+
+4. Retorno
+Devuelva un solo DataFrame transformado que contenga:
+ - Las características escaladas e imputadas
+ - Las columnas de evento y duración intactas
+---------------------------------------------------------------------------------
+Entrada
+  - df: DataFrame de pandas con datos clínicos y de seguimiento
+  - event_col: Nombre de la columna de evento (str)
+  - duration_col: Nombre de la columna de tiempo (str)
+
+Salida
+DataFrame de pandas procesado
+
+Restricciones
+  - Use ColumnTransformer de sklearn.compose
+  - Las transformaciones deben afectar solo a las variables independientes
+  - No debe alterar el índice original del DataFrame
