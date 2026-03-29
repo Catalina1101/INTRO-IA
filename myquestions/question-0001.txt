@@ -1,1 +1,39 @@
-hola
+El Problema
+En el monitoreo remoto de pacientes, los sensores de ECG capturan señales que deben ser procesadas para extraer indicadores de salud autonómica. La Variabilidad de la Frecuencia Cardíaca (HRV) es un biomarcador crítico, pero los datos crudos a menudo contienen ruido de movimiento y valores atípicos que invalidan los cálculos de dominio temporal.
+
+Tu Misión
+Escribe una función llamada extract_hrv_metrics(rr_intervals_df, threshold_ms=2000) que realice lo siguiente:
+
+1. Limpieza
+Filtre el DataFrame rr_intervals_df eliminando los intervalos RR (tiempo entre latidos) que sean:
+Superiores a threshold_ms
+Inferiores a 300 ms
+Estos se consideran artefactos fisiológicos.
+2. Transformación
+Calcule las diferencias sucesivas entre intervalos RR consecutivos utilizando operaciones vectorizadas.
+3. Cálculo de Métricas
+RMSSD: Raíz cuadrada de la media de las diferencias sucesivas al cuadrado
+SDNN: Desviación estándar de los intervalos RR normales
+4. Retorno
+{
+    "RMSSD": float,
+    "SDNN": float,
+    "valid_samples_count": int
+}
+Especificaciones Técnicas
+Entrada
+Parámetro	Tipo	Descripción
+rr_intervals_df	pandas.DataFrame	DataFrame con columna 'RR_ms' (float)
+threshold_ms	int	Límite superior para latidos válidos (default: 2000)
+Salida
+Un diccionario con:
+
+RMSSD: float
+SDNN: float
+valid_samples_count: int
+Restricciones Obligatorias
+Prohibido el uso de bucles for para diferencias
+Obligatorio usar .diff() de pandas
+Obligatorio usar numpy para:
+Raíz cuadrada (np.sqrt())
+Potencias (** 2)
