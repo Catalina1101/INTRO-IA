@@ -1,1 +1,34 @@
+El Problema
+En bioingeniería genómica, se trabaja con datasets donde el número de características (genes) es muy superior al número de muestras ( pggn ).
+Esto causa el "mal de la dimensionalidad". Se requiere reducir el espacio de características preservando la mayor varianza posible para identificar biomarcadores.
+-------------------------------------------------------------------------------
+Tu Misión
+Escribe una función llamada: reduce_genomic_dimensions(X, variance_target=0.90)
+que automatice la reducción de dimensionalidad:
 
+1. Preprocesamiento
+Estandarice las características para que tengan:
+  - Media = 0
+  - Varianza = 1
+
+2. Descomposición
+Aplique Análisis de Componentes Principales (PCA) de sklearn
+
+3. Selección Automática
+Determine el número mínimo de componentes necesarios para explicar al menos variance_target (ej. 90%) de la varianza total
+
+4. Retorno
+Devuelva:
+  - El modelo PCA ajustado
+  - Los datos proyectados en el nuevo espacio latente
+---------------------------------------------------------------------------------
+Entrada
+  - X: Array o DataFrame con niveles de expresión de miles de genes
+  - variance_target: Umbral de varianza explicada acumulada (float)
+
+Salida
+Tupla: (pca_model, X_reduced)
+
+Restricciones
+  - Use np.cumsum(pca.explained_variance_ratio_) para identificar el punto de corte
+  - El PCA debe inicializarse con svd_solver='full'
